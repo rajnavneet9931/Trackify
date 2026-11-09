@@ -1,0 +1,44 @@
+{
+  "name": "trackify",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Trackify — team collaboration and project management platform",
+  "workspaces": [
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "dev:api": "npm run dev -w @trackify/api",
+    "dev:web": "npm run dev -w @trackify/web",
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "npm run test --workspaces --if-present",
+    "test:integration": "npm run test:integration -w @trackify/api",
+    "db:check": "npm run db:check -w @trackify/api",
+    "db:generate": "npm run prisma:generate -w @trackify/api",
+    "db:migrate": "npm run prisma:migrate -w @trackify/api",
+    "db:deploy": "npm run prisma:deploy -w @trackify/api",
+    "db:status": "npm run prisma:status -w @trackify/api",
+    "db:drift": "npm run prisma:drift -w @trackify/api",
+    "db:test:deploy": "npm run db:test:deploy -w @trackify/api",
+    "verify": "npm run format:check && npm run lint && npm run typecheck && npm run test && npm run build"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.13.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.7",
+    "globals": "^17.13.0",
+    "prettier": "^3.9.10",
+    "typescript-eslint": "^8.71.2"
+  }
+}

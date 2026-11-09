@@ -1,0 +1,26 @@
+# Local development database. Credentials below are for local use only.
+# Usage: docker compose up -d   (see README → Database)
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: trackify-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: trackify
+      POSTGRES_PASSWORD: trackify
+      POSTGRES_DB: trackify
+    ports:
+      # Bound to localhost only. Override the host port if 5432 is taken
+      # (e.g. by a native PostgreSQL install): POSTGRES_PORT=5433 docker compose up -d
+      - '127.0.0.1:${POSTGRES_PORT:-5432}:5432'
+    volumes:
+      - trackify-pgdata:/var/lib/postgresql/data
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U trackify -d trackify']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  trackify-pgdata:
